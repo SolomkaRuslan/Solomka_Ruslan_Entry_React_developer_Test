@@ -45,9 +45,11 @@ class DropDown extends Component {
           </span>
         </Title>
 
-        <Options opened={this.state.open}>
-          <ul>{this.props.children}</ul>
-        </Options>
+        {this.state.open && (
+          <Options>
+            <ul>{this.props.children}</ul>
+          </Options>
+        )}
       </DropDownBox>
     );
   }
@@ -64,6 +66,7 @@ const DropDownBox = styled.div`
   font-size: 18px;
   line-height: 29px;
   color: #1d1f22;
+  z-index: 22;
 `;
 
 const Title = styled.div`
@@ -89,11 +92,9 @@ const ArrowWrapper = styled.div`
 
 const Options = styled.div`
   width: 114px;
-  padding: 10px 0;
   position: absolute;
   left: -20px;
   top: 140%;
-  display: ${(props) => (props.opened ? "block" : "none")};
   overflow: visible;
   background: #ffffff;
   box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
@@ -101,10 +102,5 @@ const Options = styled.div`
   ul {
     list-style: none;
     filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
-  }
-
-  ul li {
-    cursor: pointer;
-    padding: 10px 20px;
   }
 `;

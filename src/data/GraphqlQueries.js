@@ -8,9 +8,20 @@ export const CATEGORY_QUERY = gql`
         id
         inStock
         name
+        brand
         prices {
           amount
           currency
+        }
+        attributes {
+          id
+          name
+          type
+          items {
+            id
+            displayValue
+            value
+          }
         }
         gallery
       }

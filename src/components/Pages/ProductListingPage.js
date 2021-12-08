@@ -22,6 +22,7 @@ class ProductListingPage extends Component {
                   <ProductCardsList
                     activeCurrency={this.props.activeCurrency}
                     items={data.category.products}
+                    addToCart={this.props.addToCart}
                   />
                 </React.Fragment>
               );

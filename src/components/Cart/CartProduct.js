@@ -25,21 +25,21 @@ class CartProduct extends Component {
           <span>{this.props.product.brand}</span>
           <p className="product-price-value-cart">{`${
             CURRENCY_SYMBOLS[this.props.activeCurrency]
-          }${(amount * this.props.product.quantity).toFixed(2)}`}</p>
+          }${amount}`}</p>
 
-          <div>
-            {this.props.product.attributes.map((attr) => (
-              <Spacer key={attr.id}>
+          {this.props.product.attributes.length > 0 && (
+            <div>
+              {this.props.product.attributes.map((attr) => (
                 <ProductAttribute
+                  key={attr.id}
                   hoverCart={this.props.hoverCart}
                   attribute={attr}
-                  withTitle={false}
                   selected={this.props.product.selectedAttributes[attr.name]}
                   changeAttribute={this.submitChangeToAttribute.bind(this)}
                 />
-              </Spacer>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </CartProductDetails>
 
         <FlexGap>
@@ -73,7 +73,8 @@ const CartProductBox = styled.div`
 const CartProductDetails = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: space-between;
+  gap: 0.5rem;
 
   font-family: "Raleway", sans-serif;
   font-style: normal;
@@ -90,13 +91,7 @@ const CartProductDetails = styled.div`
     font-weight: bold;
     font-size: ${(props) => (props.hoverCart ? "16px" : "24px")};
     line-height: ${(props) => (props.hoverCart ? "25,6px" : "18px")};
-    margin-block: ${(props) => (props.hoverCart ? "5px" : "10px")};
-  }
-`;
-
-const Spacer = styled.div`
-  & + & {
-    margin-top: 1rem;
+    margin: ${(props) => (props.hoverCart ? "0" : "10px 0 0 0")};
   }
 `;
 

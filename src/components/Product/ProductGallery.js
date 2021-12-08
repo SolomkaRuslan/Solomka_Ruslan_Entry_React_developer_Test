@@ -24,6 +24,7 @@ class ProductGallery extends Component {
                   if (img !== this.state.mainImg)
                     this.setState({ mainImg: img });
                 }}
+                onError={(e) => e.target.remove()}
               />
             </SquareImgHolder>
           ))}

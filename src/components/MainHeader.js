@@ -63,12 +63,13 @@ class MainHeader extends Component {
                     if (loading) return "";
 
                     return data.currencies.map((item) => (
-                      <li
+                      <DropDownOption
                         key={item}
+                        active={item === this.props.activeCurrency}
                         onClick={() => this.props.changeCurrency(item)}
                       >
                         {CURRENCY_SYMBOLS[item]} {item}
-                      </li>
+                      </DropDownOption>
                     ));
                   }}
                 </Query>
@@ -153,4 +154,15 @@ const FlexCenter = styled.div`
   align-items: center;
   gap: 14px;
   height: 100%;
+`;
+
+const DropDownOption = styled.li`
+  cursor: pointer;
+  padding: 10px 20px;
+  background: ${(props) =>
+    props.active ? "rgba(94, 206, 123, 0.2)" : "#ffffff"};
+
+  &:hover {
+    background: rgba(94, 206, 123, 0.2);
+  }
 `;

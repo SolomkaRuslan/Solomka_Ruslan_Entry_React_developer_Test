@@ -80,6 +80,7 @@ class App extends Component {
                 <ProductListingPage
                   activeCategory={this.state.activeCategory}
                   activeCurrency={this.state.activeCurrency}
+                  addToCart={this.handleAddToCart.bind(this)}
                 />
               </Route>
 

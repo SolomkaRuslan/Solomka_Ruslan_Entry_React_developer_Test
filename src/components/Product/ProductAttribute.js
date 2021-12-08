@@ -5,9 +5,10 @@ class ProductAttribute extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.withTitle && (
-          <MyTitle>{this.props.attribute.name}:</MyTitle>
-        )}
+        <MyTitle hoverCart={this.props.hoverCart}>
+          {this.props.attribute.name}:
+        </MyTitle>
+
         <AttributeOptionContainer hoverCart={this.props.hoverCart}>
           {this.props.attribute.items.map((item) => (
             <Option
@@ -96,12 +97,13 @@ const Option = styled.div`
 `;
 
 const MyTitle = styled.h4`
-  margin-top: 20px;
+  margin-bottom: ${(props) => (props.hoverCart ? "2px" : "8px")};
+  margin-top: ${(props) => (props.hoverCart ? "8px" : "16px")};
   font-family: "Roboto Condensed", sans-serif;
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: ${(props) => (props.hoverCart ? "16px" : "18px")};
+  line-height: ${(props) => (props.hoverCart ? "26px" : "18px")};
   text-transform: uppercase;
 
   display: flex;
@@ -109,7 +111,6 @@ const MyTitle = styled.h4`
   text-align: center;
 
   color: #1d1f22;
-  margin-bottom: 10px;
 `;
 
 const ColorIndicator = styled.div`

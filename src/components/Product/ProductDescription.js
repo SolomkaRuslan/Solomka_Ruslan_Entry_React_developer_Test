@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
+import DOMPurify from "dompurify";
 import CURRENCY_SYMBOLS from "../../data/CurrencyDispayNames";
 import ProductAttribute from "./ProductAttribute";
+import { getInitialProductAttributes } from "../../data/getInitialProductAttributes";
 
 import { BtnPrimary } from "../../data/commonStyles";
 
@@ -10,22 +12,11 @@ class ProductDescription extends Component {
   constructor(props) {
     super(props);
 
-    let initialSelectedAttributes = {};
-    this.props.product.attributes.forEach((attribute) => {
-      initialSelectedAttributes = {
-        ...initialSelectedAttributes,
-        ...this.getInitialAttrData(attribute),
-      };
-    });
-
     this.state = {
-      selectedAttributes: initialSelectedAttributes,
+      selectedAttributes: getInitialProductAttributes(
+        this.props.product.attributes
+      ),
     };
-  }
-
-  getInitialAttrData(attr) {
-    const { name } = attr;
-    return { [name]: attr.items[0].value };
   }
 
   handleChangeAttribute(key, value) {
@@ -52,7 +43,6 @@ class ProductDescription extends Component {
               <ProductAttribute
                 key={attr.id}
                 attribute={attr}
-                withTitle={true}
                 selected={this.state.selectedAttributes[attr.name]}
                 changeAttribute={this.handleChangeAttribute.bind(this)}
               />
@@ -82,10 +72,14 @@ class ProductDescription extends Component {
         >
           {this.props.product.inStock ? "Add to Cart" : "Out of Stock"}
         </BtnPrimary>
-        
+
         <p
           className="desc-description"
-          dangerouslySetInnerHTML={{ __html: this.props.product.description }}
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(this.props.product.description, {
+              USE_PROFILES: { html: true },
+            }),
+          }}
         ></p>
       </ProductDescriptionBox>
     );

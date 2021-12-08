@@ -122,6 +122,6 @@ export const BtnSecondary = styled.button`
   cursor: ${(props) => (props.disabled ? "" : "pointer")};
 
   &:hover {
-    background: rgba(25, 205, 25, 0.2);
+    background: rgba(94, 206, 123, 0.2);
   }
 `;
